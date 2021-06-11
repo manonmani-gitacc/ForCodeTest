@@ -1,0 +1,43 @@
+
+E2E test cases
+	1.User should be able to  register ->serach->place order->checkout order
+
+
+Happy Path testing - Test cases
+`	1.User shoudl be able to register
+	2.Applciation shoudl be available to user
+	3.User shoudl be able to edit order before checkout
+	4.Details shoudl be proper as per order palced
+	5.user should be able to view details  
+	6.User shoudl be able to serach products and place in wishlist or place order
+	7.User shoudl be able to serach products and place place order
+	8.User shoudl be able to add one or more products 
+	9.User shoudl be prompted for coupons or offers they are applciable to
+	10.User shoudl be able to logout
+	
+	 
+
+System Test cases
+	1.Database vlaiaditons upon storing or fetching oreders from database to UI
+	2.Proper vlaidtion and error message if on backend faiure or API calls failure
+	3.Serach results with respect to API calls
+
+UI validation test cases
+	1.Required fields shoudl be highlighted 
+	2.Fields validaiton as per length and other rules validaitons as per business
+	3.user friendly error messages 
+	4.UI related - logo's ,header alignment shoudl be proper
+	5.No Broken links including header and footer
+	6.Filtering ,sorting a
+	
+
+Test Case 1 - Automate End to End Buy Order functionality.
+
+Test Case 2 - Verify that 'Add to Wishlist' only works after login.
+Steps to Automate:
+
+
+Test Case 3 - Verify that Total Price is reflecting correctly if user changes quantity on 'Shopping Cart Summary' Page.
+Steps to Automate:
+
+ 
