@@ -10,6 +10,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
@@ -26,7 +28,8 @@ public class NewTest {
 
 	String totalvalueduringcheckout = "";
 	HomePage homepage ;
-
+	WebDriverWait wait=new WebDriverWait(driver, 20);
+	
 	@BeforeClass
 	public void beforeClass() {
 
@@ -36,7 +39,10 @@ public class NewTest {
 
 		//NOt a better way to call like this,it has to be form configuraiton file
 		//Due to time constraint ,taking directly for time being
-		driver.get("http://http://advantageonlineshopping.com/#/");
+		driver.get("http://advantageonlineshopping.com/#/1");
+		driver.manage().window().maximize() ;
+		
+		 wait.until(ExpectedConditions.elementToBeClickable(homepage.))
 	}
 
 	@AfterClass
@@ -190,13 +196,14 @@ public class NewTest {
 		 
 	}
 
+	
 	// Test case to verify applciaiton lainch
 	//This test case can be made as dependent as if applcaitn fails it wont run
 	@Test
 	public void verifyapplication_upstatus() {
 			//Direct call for demo , rather than taking from config file
 		
-				driver.get("http://http://advantageonlineshopping.com/#/");
+		driver.get("http://advantageonlineshopping.com/#/1");
 				
 			//Taken assumptions are website is up and running which is done by taking network tab contents and check for staus code
 				int statuscode=200;
