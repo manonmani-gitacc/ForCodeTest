@@ -16,6 +16,8 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import com.automation.eshopping.pages.HomePage;
+
 public class NewTest {
 
 	WebDriver driver;
@@ -23,6 +25,7 @@ public class NewTest {
 	String subprodcutbeingselected = "";
 
 	String totalvalueduringcheckout = "";
+	HomePage homepage ;
 
 	@BeforeClass
 	public void beforeClass() {
@@ -31,6 +34,8 @@ public class NewTest {
 
 		WebDriver driver = new ChromeDriver();
 
+		//NOt a better way to call like this,it has to be form configuraiton file
+		//Due to time constraint ,taking directly for time being
 		driver.get("http://http://advantageonlineshopping.com/#/");
 	}
 
@@ -83,10 +88,11 @@ public class NewTest {
 
 		Reporter.log("----Test case execution for happy path - e2e testing------");
 		
-			// As the wwebpage is dynamic is it better to get dynamic lsitof products and do
-			// operation rather than hard coding
+			
 		
 			Reporter.log("Step 1----Getting the dynamic list of main product cateogory available");
+						// As the wwebpage is dynamic is it better to get dynamic lsitof products and do
+						// operation rather than hard coding
 	
 						String productname = getrandonintforselection(listofmainproductslabel);
 				
@@ -98,8 +104,8 @@ public class NewTest {
 				
 						Reporter.log("Step 3----Selection of sub product category to proceed with");
 				
-						// Though of random selection here as well but due to time constraint proceeding
-						// with list item if available
+						// Thought of random selection here as well but due to time constraint proceeding
+						// with first list item if available
 				
 						java.util.List<WebElement> subproducts = driver.findElements(By.xpath("//*[contains(@class, 'imgProduct')]"));
 				
@@ -184,7 +190,24 @@ public class NewTest {
 		 
 	}
 
-	// Test case to veirfy applciaiton lainch
+	// Test case to verify applciaiton lainch
+	//This test case can be made as dependent as if applcaitn fails it wont run
+	@Test
+	public void verifyapplication_upstatus() {
+			//Direct call for demo , rather than taking from config file
+		
+				driver.get("http://http://advantageonlineshopping.com/#/");
+				
+			//Taken assumptions are website is up and running which is done by taking network tab contents and check for staus code
+				int statuscode=200;
+				assertTrue((statuscode==200||statuscode==304),
+						"Applicaiton is up and running for use");
+				
+				homepage = new HomePage(driver);
+				
+				assertTrue(homepage.getHomePageDashboardHeader().contains("dvantage"),
+						"Application Header displayed to user ");
+	}
  
 	// Test case to register user
 

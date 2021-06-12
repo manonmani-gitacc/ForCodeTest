@@ -1,37 +1,29 @@
 package com.automation.eshopping.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
-import org.openqa.selenium.WebElement;
-
-import org.openqa.selenium.support.FindBy;
-
-import org.openqa.selenium.support.PageFactory;
 
 public class HomePage {
 
     WebDriver driver;
+   
 
-    @FindBy(xpath="//table//tr[@class='heading3']")
+    By homepageheader = By.xpath("/html/body/header/nav/div/a']");
 
-    WebElement productsinhomepage;    
+    
 
     public HomePage(WebDriver driver){
 
         this.driver = driver;
 
-        //This initElements method will create all WebElements
-
-        PageFactory.initElements(driver, this);
-
-    }   
+    }
 
     //Get the User name from Home Page
 
-        public String getHomePageDashboardtitle(){
+        public String getHomePageDashboardHeader(){
 
-         return    productsinhomepage.getText();
+         return    driver.findElement(homepageheader).getText();
 
         }
-
+        
 }
