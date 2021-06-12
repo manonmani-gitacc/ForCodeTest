@@ -8,7 +8,7 @@ public class HomePage {
 
 	WebDriver driver;
 
-	By homepageheader = By.xpath("/html/body/header/nav/div/a']");
+	By homepageheader = By.xpath("/html/body/header/nav/div/a");
 
 	public HomePage(WebDriver driver) {
 

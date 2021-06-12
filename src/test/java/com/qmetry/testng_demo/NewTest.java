@@ -5,6 +5,7 @@ import static org.testng.Assert.assertTrue;
 import java.awt.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -28,21 +29,33 @@ public class NewTest {
 
 	String totalvalueduringcheckout = "";
 	HomePage homepage ;
-	WebDriverWait wait=new WebDriverWait(driver, 20);
+	@SuppressWarnings("deprecation")
+	WebDriverWait wait;
 	
+	@SuppressWarnings("deprecation")
 	@BeforeClass
 	public void beforeClass() {
 
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\tjaya\\fRAMEOWKR\\lib\\newlib\\chromedriver.exe");
 
-		WebDriver driver = new ChromeDriver();
+		 driver = new ChromeDriver();
 
 		//NOt a better way to call like this,it has to be form configuraiton file
 		//Due to time constraint ,taking directly for time being
-		driver.get("http://advantageonlineshopping.com/#/1");
+		driver.get("https://advantageonlineshopping.com");
 		driver.manage().window().maximize() ;
+		driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS) ;
 		
-		 wait.until(ExpectedConditions.elementToBeClickable(homepage.homepageheader()));
+		WebDriverWait wait=new WebDriverWait(driver,20);
+		 
+		 //explict wait since first time loading or relaoding is uncertain due to caching ornon caching based aplications
+		 homepage = new HomePage(driver);
+		  
+		//find the searchBox element and save it in the WebElement variable
+		WebElement homepageheader = wait.until(
+		                                ExpectedConditions.
+		                                  elementToBeClickable
+		                                     (homepage.homepageheader()));
 	}
 
 	@AfterClass
@@ -89,6 +102,7 @@ public class NewTest {
 		return randomproduct;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void orderandcheckout_happypath_e2e() {
 
@@ -107,6 +121,9 @@ public class NewTest {
 			Reporter.log("Step 2----Selection of main product category to proceed with");
 	
 						driver.findElement(By.xpath(xpath)).click();
+						
+						//as a best practics click wil be overriden and handled at frameowrk to avoid this reapted lines
+						driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS) ;
 				
 						Reporter.log("Step 3----Selection of sub product category to proceed with");
 				
@@ -120,17 +137,21 @@ public class NewTest {
 							subprodcutbeingselected = driver.findElement(By.xpath("(//*[contains(@class, 'imgProduct')])[1]"))
 									.getText();
 							driver.findElement(By.xpath("(//*[contains(@class, 'imgProduct')])[1]")).click();
-				
+							driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS) ;
 						}
 	
 			Reporter.log("Step 3----Selection of sub product category and proceeding for checkout");
+			
+						//POM based shoudl be followed just for timebeing used as with xpath 
 	
 						// Click add to cart
 						driver.findElement(By.xpath("//button[contains(@name, 'save_to_cart')]")).click();
-				
+						driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS) ;
+						
 						// Click checkout
 				
 						driver.findElement(By.xpath("(//*[contains(@id, 'checkOutPopUp')])[2]")).click();
+						driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS) ;
 				
 						totalvalueduringcheckout = driver.findElement(By.xpath("//*[@id=\"userCart\"]/div[2]/label[2]/span")).getText();
 				
@@ -145,6 +166,7 @@ public class NewTest {
 						driver.findElement(By.xpath("//input[contains(@name, 'usernameInOrderPayment')]")).sendKeys("Test@123");
 				
 						driver.findElement(By.xpath("//*[contains(@id, 'next_btn')]")).click();
+						driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS) ;
 	
 			Reporter.log("Step 4----Checkout as user already exists");
 	
@@ -165,6 +187,7 @@ public class NewTest {
 						driver.findElement(By.xpath("//input[contains(@name, 'safepay_password')]")).sendKeys("Test@123");
 				
 						driver.findElement(By.xpath("//*[contains(@id, 'pay_now_btn_SAFEPAY')]")).click();
+						driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS) ;
 	
 			Reporter.log("Step 5---Verification of order summary page");
 	
@@ -202,8 +225,21 @@ public class NewTest {
 	@Test
 	public void verifyapplication_upstatus() {
 			//Direct call for demo , rather than taking from config file
+			wait= new WebDriverWait(driver, 20);
+				driver.get("https://advantageonlineshopping.com");
 		
-		driver.get("http://advantageonlineshopping.com/#/1");
+				driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS) ;
+				
+				WebDriverWait wait=new WebDriverWait(driver,20);
+				 
+				 //explict wait since first time loading or relaoding is uncertain due to caching ornon caching based aplications
+				 homepage = new HomePage(driver);
+				  
+				//find the searchBox element and save it in the WebElement variable
+				WebElement homepageheader = wait.until(
+				                                ExpectedConditions.
+				                                  elementToBeClickable
+				                                     (homepage.homepageheader()));
 				
 			//Taken assumptions are website is up and running which is done by taking network tab contents and check for staus code
 				int statuscode=200;
