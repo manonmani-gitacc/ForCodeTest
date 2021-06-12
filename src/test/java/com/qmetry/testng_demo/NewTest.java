@@ -42,7 +42,7 @@ public class NewTest {
 		driver.get("http://advantageonlineshopping.com/#/1");
 		driver.manage().window().maximize() ;
 		
-		 wait.until(ExpectedConditions.elementToBeClickable(homepage.))
+		 wait.until(ExpectedConditions.elementToBeClickable(homepage.homepageheader()));
 	}
 
 	@AfterClass
